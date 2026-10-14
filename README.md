@@ -1,30 +1,39 @@
 # AutoCaptureChrome
-This is a powerful Chrome extension designed to simplify the process of capturing and sharing screenshots effortlessly. Whether you're collaborating on projects, providing quick feedback, or simply sharing visual content, this extension streamlines the workflow with its intuitive features.
-Extension Name: AutoCapture-TelegramBot
 
-**#Description:**
-AutoCapture-TelegramBot is a powerful Chrome extension designed to simplify the process of capturing and sharing screenshots effortlessly. Whether you're collaborating on projects, providing quick feedback, or simply sharing visual content, this extension streamlines the workflow with its intuitive features.
+**JavaScript · Chrome Extension · Browser APIs · Telegram Bot API**
 
-**#Key Features:**
+A Chrome extension experiment for capturing screenshots on a configurable interval and forwarding them through a Telegram bot.
 
-Automatic Capture: Automatically capture screenshot in Specified time interval.
-Telegram Integration: Seamlessly send captured screenshots directly to your Telegram contacts or channels.
-Customizable Settings: Tailor the extension to your preferences with options to set capture intervals, Telegram credentials, and more.
-Turn On/Off Control: Enable or disable the extension with a single click, providing you with full control over when to capture and share screenshots.
+> **Privacy:** Use only on browsers and pages you own or have permission to monitor. Screenshots can contain passwords, private conversations, and other sensitive information. Review where captured images go before enabling the extension.
 
+## Features represented in source
 
-**#How It Works:**
-Set Up Credentials: Enter your Telegram Bot API Token and User ID for secure and direct sharing.
-Customize Settings: Adjust capture intervals and other settings to match your workflow.
-Effortless Sharing: Screenshots are automatically sent to Telegram, making collaboration and communication a breeze.
-Why AutoCapture-TelegramBot?
+- Chrome extension manifest and popup UI
+- Configurable screenshot capture scheduling
+- Telegram bot integration
+- Controls to start or stop capture
+- JavaScript background and popup logic
 
-#Time-Saving: Automate the screenshot process to focus on what matters most.
-User-Friendly: Simple and intuitive interface for users of all levels.
-Enhanced Collaboration: Facilitate smoother communication through visual content sharing.
-Get Started:
+## Code layout
 
-#Install  from the Chrome Web Store.
-Enter your Telegram Bot API Token and User ID in the extension settings.
-Customize capture intervals and other settings to suit your preferences.
-Enjoy seamless screenshot sharing with your Telegram contacts.
+| File | Role |
+| --- | --- |
+| `manifest.json` | Chrome extension configuration |
+| `background.js` | Background behavior |
+| `popup.html`, `popup.js` | Extension controls |
+| `index.html` | Supporting interface |
+| `html2canvas.min.js` | Bundled screenshot helper |
+
+## Inspect and load locally
+
+1. Clone [this repository](https://github.com/TheRitikYadav/AutoCaptureChrome).
+2. Open `chrome://extensions` in Chrome.
+3. Enable **Developer mode** and choose **Load unpacked**.
+4. Select the cloned directory containing `manifest.json`.
+5. Review the extension permissions and code before configuring a Telegram bot.
+
+This is a learning/automation project. Compatibility with current Chrome releases, capture permissions, and successful Telegram delivery should be tested before production use.
+
+## Portfolio scope
+
+This project demonstrates browser extension architecture and event-driven automation. No claim is made that the extension has undergone security review or Chrome Web Store publication.
